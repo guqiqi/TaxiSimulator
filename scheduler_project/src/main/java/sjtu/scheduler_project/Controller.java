@@ -61,7 +61,9 @@ public class Controller {
         ArrayList<Integer> schedule = new ArrayList<>();
         ArrayList<Task> queue = new ArrayList<>();
         Boolean[] state = new Boolean[orders.length];
+        Boolean[] wait = new Boolean[orders.length];
         Arrays.fill(state, Boolean.FALSE);
+        Arrays.fill(wait, Boolean.FALSE);
 
         while (time < end) {
             // add arrived task in the present
@@ -69,7 +71,10 @@ public class Controller {
                 Order order = orders[i];
                 if (!state[i]) {
                     if (order.arriveTime == time)
-                        queue.add(new Task(order.id, time, order.executionTime1, order.deadline, order.priority));
+                        if (queue.size() < 4)
+                            queue.add(new Task(order.id, time, order.executionTime1, order.deadline, order.priority));
+                        else
+                            wait[i] = true;
                 }
             }
             // execute task
@@ -87,6 +92,13 @@ public class Controller {
                     }
 
                     queue.remove(0);
+                    for (int i = 0; i < wait.length; i++) {
+                        if (wait[i]) {
+                            queue.add(new Task(orders[i].id, time, orders[i].executionTime1, orders[i].deadline,
+                                    orders[i].priority));
+                            wait[i] = false;
+                        }
+                    }
                 }
             } else
                 schedule.add(0);
@@ -101,7 +113,9 @@ public class Controller {
         ArrayList<Integer> schedule = new ArrayList<>();
         ArrayList<Task> queue = new ArrayList<>();
         Boolean[] state = new Boolean[orders.length];
+        Boolean[] wait = new Boolean[orders.length];
         Arrays.fill(state, Boolean.FALSE);
+        Arrays.fill(wait, Boolean.FALSE);
 
         while (time < end) {
             // add tasks
@@ -109,8 +123,11 @@ public class Controller {
                 Order order = orders[i];
                 if (!state[i]) {
                     if (order.arriveTime == time) {
-                        addTaskWithPriority(queue, new Task(order.id, time, order.executionTime1,
-                                order.deadline - order.executionTime2, order.priority));
+                        if (queue.size() < 4)
+                            addTaskWithPriority(queue, new Task(order.id, time, order.executionTime1,
+                                    order.deadline - order.executionTime2, order.priority));
+                        else
+                            wait[i] = true;
                     }
                 }
             }
@@ -130,6 +147,13 @@ public class Controller {
                     }
 
                     queue.remove(0);
+                    for (int i = 0; i < wait.length; i++) {
+                        if (wait[i]) {
+                            queue.add(new Task(orders[i].id, time, orders[i].executionTime1, orders[i].deadline,
+                                    orders[i].priority));
+                            wait[i] = false;
+                        }
+                    }
                 }
             } else
                 schedule.add(0);
@@ -158,7 +182,9 @@ public class Controller {
         ArrayList<Integer> schedule = new ArrayList<>();
         ArrayList<Task> queue = new ArrayList<>();
         Boolean[] state = new Boolean[orders.length];
+        Boolean[] wait = new Boolean[orders.length];
         Arrays.fill(state, Boolean.FALSE);
+        Arrays.fill(wait, Boolean.FALSE);
 
         while (time < end) {
             // add tasks
@@ -166,8 +192,11 @@ public class Controller {
                 Order order = orders[i];
                 if (!state[i]) {
                     if (order.arriveTime == time) {
-                        addTaskWithEDF(queue, new Task(order.id, time, order.executionTime1,
-                                order.deadline - order.executionTime2, order.priority));
+                        if (queue.size() < 4)
+                            addTaskWithEDF(queue, new Task(order.id, time, order.executionTime1,
+                                    order.deadline - order.executionTime2, order.priority));
+                        else
+                            wait[i] = true;
                     }
                 }
             }
@@ -187,6 +216,13 @@ public class Controller {
                     }
 
                     queue.remove(0);
+                    for (int i = 0; i < wait.length; i++) {
+                        if (wait[i]) {
+                            queue.add(new Task(orders[i].id, time, orders[i].executionTime1, orders[i].deadline,
+                                    orders[i].priority));
+                            wait[i] = false;
+                        }
+                    }
                 }
             } else
                 schedule.add(0);
@@ -216,7 +252,9 @@ public class Controller {
         ArrayList<Integer> schedule = new ArrayList<>();
         ArrayList<Task> queue = new ArrayList<>();
         Boolean[] state = new Boolean[orders.length];
+        Boolean[] wait = new Boolean[orders.length];
         Arrays.fill(state, Boolean.FALSE);
+        Arrays.fill(wait, Boolean.FALSE);
 
         while (time < end) {
             // add tasks
@@ -224,8 +262,11 @@ public class Controller {
                 Order order = orders[i];
                 if (!state[i]) {
                     if (order.arriveTime == time) {
-                        addTaskWithSJF(queue, new Task(order.id, time, order.executionTime1,
-                                order.deadline - order.executionTime2, order.priority));
+                        if (queue.size() < 4)
+                            addTaskWithSJF(queue, new Task(order.id, time, order.executionTime1,
+                                    order.deadline - order.executionTime2, order.priority));
+                        else
+                            wait[i] = true;
                     }
                 }
             }
@@ -245,6 +286,13 @@ public class Controller {
                     }
 
                     queue.remove(0);
+                    for (int i = 0; i < wait.length; i++) {
+                        if (wait[i]) {
+                            queue.add(new Task(orders[i].id, time, orders[i].executionTime1, orders[i].deadline,
+                                    orders[i].priority));
+                            wait[i] = false;
+                        }
+                    }
                 }
             } else
                 schedule.add(0);
