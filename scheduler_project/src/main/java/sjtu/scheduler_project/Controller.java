@@ -64,7 +64,7 @@ public class Controller {
         Arrays.fill(state, Boolean.FALSE);
 
         while (time < end) {
-            // add tasks
+            // add arrived task in the present
             for (int i = 0; i < orders.length; i++) {
                 Order order = orders[i];
                 if (!state[i]) {
