@@ -8,8 +8,8 @@ import java.util.*;
 
 @RestController
 public class Controller {
-    @PostMapping("/controller")
-    public ArrayList<Integer> controller(@RequestBody Map<String, Object> map) {
+    @PostMapping("/fifo")
+    public ArrayList<Integer> getFIFO(@RequestBody Map<String, Object> map) {
         List<LinkedHashMap> orders = (List<LinkedHashMap>) map.get("orders");
         Order[] orders1 = new Order[orders.size()];
         for (int i = 0; i < orders.size(); i++) {
@@ -18,6 +18,42 @@ public class Controller {
                     (Integer) orders.get(i).get("executionTime2"), (Integer) orders.get(i).get("deadline"), (Integer) orders.get(i).get("priority"));
         }
         return new Controller().fifo(orders1, 100);
+    }
+
+    @PostMapping("/prioritybased")
+    public ArrayList<Integer> getPriorityBased(@RequestBody Map<String, Object> map) {
+        List<LinkedHashMap> orders = (List<LinkedHashMap>) map.get("orders");
+        Order[] orders1 = new Order[orders.size()];
+        for (int i = 0; i < orders.size(); i++) {
+            orders1[i] = new Order((Integer) orders.get(i).get("id"),
+                    (Integer) orders.get(i).get("arriveTime"), (Integer) orders.get(i).get("executionTime1"),
+                    (Integer) orders.get(i).get("executionTime2"), (Integer) orders.get(i).get("deadline"), (Integer) orders.get(i).get("priority"));
+        }
+        return new Controller().priorityBased(orders1, 100);
+    }
+
+    @PostMapping("/edf")
+    public ArrayList<Integer> getEDF(@RequestBody Map<String, Object> map) {
+        List<LinkedHashMap> orders = (List<LinkedHashMap>) map.get("orders");
+        Order[] orders1 = new Order[orders.size()];
+        for (int i = 0; i < orders.size(); i++) {
+            orders1[i] = new Order((Integer) orders.get(i).get("id"),
+                    (Integer) orders.get(i).get("arriveTime"), (Integer) orders.get(i).get("executionTime1"),
+                    (Integer) orders.get(i).get("executionTime2"), (Integer) orders.get(i).get("deadline"), (Integer) orders.get(i).get("priority"));
+        }
+        return new Controller().edf(orders1, 100);
+    }
+
+    @PostMapping("/sjf")
+    public ArrayList<Integer> getSJF(@RequestBody Map<String, Object> map) {
+        List<LinkedHashMap> orders = (List<LinkedHashMap>) map.get("orders");
+        Order[] orders1 = new Order[orders.size()];
+        for (int i = 0; i < orders.size(); i++) {
+            orders1[i] = new Order((Integer) orders.get(i).get("id"),
+                    (Integer) orders.get(i).get("arriveTime"), (Integer) orders.get(i).get("executionTime1"),
+                    (Integer) orders.get(i).get("executionTime2"), (Integer) orders.get(i).get("deadline"), (Integer) orders.get(i).get("priority"));
+        }
+        return new Controller().sjf(orders1, 100);
     }
 
     public ArrayList<Integer> fifo(Order[] orders, int end) {
@@ -60,7 +96,7 @@ public class Controller {
         return schedule;
     }
 
-    public ArrayList<Integer> priority_based(Order[] orders, int end) {
+    public ArrayList<Integer> priorityBased(Order[] orders, int end) {
         int time = 0;
         ArrayList<Integer> schedule = new ArrayList<>();
         ArrayList<Task> queue = new ArrayList<>();
@@ -230,7 +266,6 @@ public class Controller {
             queue.add(j, task);
         else
             queue.add(j + 1, task);
-
     }
 
 }
