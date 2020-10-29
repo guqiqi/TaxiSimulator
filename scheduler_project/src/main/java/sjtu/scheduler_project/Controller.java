@@ -85,7 +85,7 @@ public class Controller {
                 if (task.startTime == -1)
                     task.startTime = time;
                 if (task.startTime + task.executionTime == time + 1) {
-                    if (!state[task.id - 1]) {
+                    if (task.id > 0 && !state[task.id - 1]) {
                         state[task.id - 1] = true;
                         Order order = orders[task.id - 1];
                         queue.add(new Task(-1 * order.id, time, order.executionTime2, order.deadline, order.priority));
@@ -139,7 +139,7 @@ public class Controller {
                 if (task.startTime == -1)
                     task.startTime = time;
                 if (task.startTime + task.executionTime == time + 1) {
-                    if (!state[task.id - 1]) {
+                    if (task.id > 0 && !state[task.id - 1]) {
                         state[task.id - 1] = true;
                         Order order = orders[task.id - 1];
                         addTaskWithPriority(queue, new Task(-1 * order.id, time, order.executionTime2,
@@ -208,7 +208,7 @@ public class Controller {
                 if (task.startTime == -1)
                     task.startTime = time;
                 if (task.startTime + task.executionTime == time + 1) {
-                    if (!state[task.id - 1]) {
+                    if (task.id > 0 && !state[task.id - 1]) {
                         state[task.id - 1] = true;
                         Order order = orders[task.id - 1];
                         addTaskWithEDF(queue, new Task(-1 * order.id, time, order.executionTime2,
@@ -278,7 +278,7 @@ public class Controller {
                 if (task.startTime == -1)
                     task.startTime = time;
                 if (task.startTime + task.executionTime == time + 1) {
-                    if (!state[task.id - 1]) {
+                    if (task.id > 0 && !state[task.id - 1]) {
                         state[task.id - 1] = true;
                         Order order = orders[task.id - 1];
                         addTaskWithSJF(queue, new Task(-1 * order.id, time, order.executionTime2,
