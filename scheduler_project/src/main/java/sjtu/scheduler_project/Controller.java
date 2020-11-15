@@ -17,10 +17,10 @@ public class Controller {
                     (Integer) orders.get(i).get("arriveTime"), (Integer) orders.get(i).get("executionTime1"),
                     (Integer) orders.get(i).get("executionTime2"), (Integer) orders.get(i).get("deadline"), (Integer) orders.get(i).get("priority"));
         }
-        return new Controller().fifo(orders1, 100);
+        return new Controller().fifo(orders1, 51);
     }
 
-    @PostMapping("/prioritybased")
+    @PostMapping("/priority")
     public ArrayList<Integer> getPriorityBased(@RequestBody Map<String, Object> map) {
         List<LinkedHashMap> orders = (List<LinkedHashMap>) map.get("orders");
         Order[] orders1 = new Order[orders.size()];
@@ -29,7 +29,7 @@ public class Controller {
                     (Integer) orders.get(i).get("arriveTime"), (Integer) orders.get(i).get("executionTime1"),
                     (Integer) orders.get(i).get("executionTime2"), (Integer) orders.get(i).get("deadline"), (Integer) orders.get(i).get("priority"));
         }
-        return new Controller().priorityBased(orders1, 100);
+        return new Controller().priorityBased(orders1, 51);
     }
 
     @PostMapping("/edf")
@@ -41,7 +41,7 @@ public class Controller {
                     (Integer) orders.get(i).get("arriveTime"), (Integer) orders.get(i).get("executionTime1"),
                     (Integer) orders.get(i).get("executionTime2"), (Integer) orders.get(i).get("deadline"), (Integer) orders.get(i).get("priority"));
         }
-        return new Controller().edf(orders1, 100);
+        return new Controller().edf(orders1, 51);
     }
 
     @PostMapping("/sjf")
@@ -53,7 +53,7 @@ public class Controller {
                     (Integer) orders.get(i).get("arriveTime"), (Integer) orders.get(i).get("executionTime1"),
                     (Integer) orders.get(i).get("executionTime2"), (Integer) orders.get(i).get("deadline"), (Integer) orders.get(i).get("priority"));
         }
-        return new Controller().sjf(orders1, 100);
+        return new Controller().sjf(orders1, 51);
     }
 
     public ArrayList<Integer> fifo(Order[] orders, int end) {
